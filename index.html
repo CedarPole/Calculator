@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="styles/styles.css"/>
+
+</head> 
+
+<body>
+  <div class="Calc">
+    <label class="switch">
+        <input type="checkbox" onclick="switchmode()">
+        <span class="slider"></span>
+    </label>
+    <div class="Total"  id="Total"><label id="lbloldnum">16099</label><input id="inputtxt" type="tel" value="0"></div>
+    <div>
+      <button id="btnAC" onclick="btnpressAC()" value="AC">AC</button>
+      <button  onclick="switchPositiveNegative()" value="invert">+/-</button>
+      <button  value="%">%</button>
+      <button id="btn/" onclick="SetOperator('/')" value="div"> &divide;</button>
+    </div>
+    <div>
+      <button onclick="updateTotal(7)" value="7">7</button>
+      <button onclick="updateTotal(8)"  value="8">8</button>
+      <button onclick="updateTotal(9)"  value="9">9</button>
+      <button id="btn*" onclick="SetOperator('*')"  value="X">X</button>
+    </div>
+    <div>
+      <button onclick="updateTotal(4)" value="4">4</button>
+      <button onclick="updateTotal(5)"  value="5">5</button>
+      <button onclick="updateTotal(6)"  value="6">6</button>
+      <button id="btn-" onclick="SetOperator('-')"  value="-">-</button>
+
+    </div>
+    
+    <div>
+      <button onclick="updateTotal(1)"   value="1">1</button>
+      <button onclick="updateTotal(2)" value="2">2</button>
+      <button onclick="updateTotal(3)"  value="3">3</button>
+      <button onclick="SetOperator('+')" id="btn+"  value="+">+</button>
+
+    </div>
+    <div>
+      <button onclick="updateTotal(0)" class="number0" value="0">0</button>
+      <button onclick="addDecimal()"  value=".">.</button>
+      <button onclick="SetOperator('=')" id="btn="  value="=">=</button>
+
+
+    </div>
+</div>
+<div id="history" class="history">
+</div>
+</body>
+</html>
+<script>
+// To Do
+// any equation with decimals don't work
+// = does not submit equation
+// add "oldnum" above the text
+// % button
+// History panel
+
+
+
+//Model
+//Variables
+
+let btnpress;
+let operator;
+
+let count =  1;
+let history;
+
+let decimal = false;
+
+let oldnum = '0';
+
+let invisnumber = "0";
+let invisOpe;
+
+
+let mode = "night"; // This start the application in night mode
+
+function getTotal()
+{
+    return document.getElementById('inputtxt').value;
+}
+
+function setTotal(x)
+{
+    oldnum = num;
+    document.getElementById('inputtxt').value = x;
+    document.getElementById('btnAC').innerHTML = "C";
+}
+
+function SetOperator(x)
+{
+    decimal = false;
+    if(operator == null)
+    {
+        operator = x;
+        document.getElementById("btn" + x).focus();
+        invisnumber = oldnum;
+        oldnum = '0';
+    }
+    else
+    {
+        checkOperator();
+    }
+}
+
+function checkOperator()
+{
+    if(operator == "+")
+    {
+        setTotal(parseInt(invisnumber) + parseInt(oldnum));
+    }
+    else if(operator == "-")
+    {
+        setTotal(parseInt(invisnumber) - parseInt(oldnum));
+    }
+    else if(operator == "*")
+    {
+        setTotal(parseInt(invisnumber) * parseInt(oldnum));
+    }
+    else if(operator == "/")
+    {
+        setTotal(parseInt(invisnumber) / parseInt(old));
+    }
+    else if(operator == "=")
+    {
+
+    }
+    operator = null;
+}
+
+//View
+
+function updateHistory()
+{
+    history = documment.getElementById('history').innerHTML
+    for (let i = 0; i < count; i++)
+    {
+        document.getElementById("history").innerHTML = oldnum + " " + operator + " " + newnum + "</br>";
+    }
+}
+
+function switchmode() // Finished
+{
+    if(mode == "night")
+    {
+        mode = "light";
+        document.documentElement.style.setProperty('--maincolor','white');
+        document.documentElement.style.setProperty('--numbercolor','rgb(56,100,161)');
+        document.documentElement.style.setProperty('--rightcolor','rgb(52,157,235)');
+        document.documentElement.style.setProperty('--topcolor','rgb(105,127,164)');
+        document.documentElement.style.setProperty('--colorinvert','white');
+        document.documentElement.style.setProperty('--textcolor','black');
+    }
+    else 
+    {
+        mode = "night";
+        document.documentElement.style.setProperty('--maincolor','black');
+        document.documentElement.style.setProperty('--numbercolor','rgb(51,51,51)');
+        document.documentElement.style.setProperty('--rightcolor','rgb(231,163,59)');
+        document.documentElement.style.setProperty('--topcolor','rgb(165,165,165)');
+        document.documentElement.style.setProperty('--colorinvert','white');
+        document.documentElement.style.setProperty('--textcolor','white');
+    }
+}
+
+function btnpressAC() //Finished
+{
+    document.getElementById('btnAC').innerHTML = "AC";
+    setTotal('0');
+    operator = null;
+    invisnumber = null;
+    btnpress = null;
+    decimal = false;
+    oldnum = '0';
+    updateTopNumber("");
+}
+
+function updateTopNumber(num)
+{
+    document.getElementById('lbloldnum').innerHTML = num;
+}
+
+
+function switchPositiveNegative() // Finished
+{
+    let element = document.getElementById('inputtxt').value;
+    if(element != 0)
+    {
+        if(element.charAt(0) == "-")
+    {
+        element = element.slice(1);
+    }
+    else
+    {
+        element = '-' + element;
+    }
+    
+    document.getElementById('inputtxt').value = element;
+    }
+    
+    
+}
+ 
+function addDecimal()
+{
+    if(decimal == false)
+    {
+        decimal = true;
+        document.getElementById('inputtxt').value = document.getElementById('inputtxt').value + '.';
+        oldnum = oldnum + '.';
+    }
+}
+// Controller
+
+document.addEventListener('keydown', function(event) {
+    
+
+    //to-do find event code for 0 key (not on keypad)
+    btnpress = null;
+    if(event.keyCode == 96) {
+        btnpress = 0;
+    }
+    else if(event.keyCode == 97 || event.keyCode == 49) {
+        btnpress = 1;
+    }
+    else if(event.keyCode == 98 || event.keyCode == 50) {
+        btnpress = 2;
+    }
+    else if(event.keyCode == 99 || event.keyCode == 51) {
+        btnpress = 3;
+    }
+    else if(event.keyCode == 100 || event.keyCode == 52) {
+        btnpress = 4;
+    }
+    else if(event.keyCode == 101 || event.keyCode == 53) {
+        btnpress = 5;
+    }
+    else if(event.keyCode == 102 || event.keyCode == 54) {
+        btnpress = 6;
+    }
+    else if(event.keyCode == 103 || event.keyCode == 55) {
+        btnpress = 7;
+    }
+    else if(event.keyCode == 104 || event.keyCode == 56)  {
+        btnpress = 8;
+    }
+    else if(event.keyCode == 105 || event.keyCode == 57) {
+        btnpress = 9;
+    }
+    else if(event.keyCode == 110 || event.keyCode == 190) {
+        addDecimal();
+    }
+    else if(event.keyCode == 13) {
+        SetOperator("=");
+    }
+    else if(event.keyCode == 107) {
+        SetOperator("+");
+    }
+    else if(event.keyCode == 109 || event.keyCode == 189) {
+        SetOperator("-");
+    }
+    else if(event.keyCode == 106) {
+        SetOperator("*");
+    }
+    else if(event.keyCode == 111) {
+        SetOperator("/");
+    }
+    if(Number.isInteger(btnpress))
+    {
+        updateTotal(btnpress);
+    }
+});
+
+function updateTotal(newnum)
+{    
+    if(document.getElementById('inputtxt').value != '0')
+    {
+       newnum = oldnum.toString() + newnum.toString();
+    }
+    setTotal(newnum);
+}
+
+
+
+</script>

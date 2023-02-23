@@ -1,0 +1,175 @@
+:root
+{
+  --maincolor: black;
+  --numbercolor: rgb(51,51,51) ;
+  --rightcolor: rgb(231,163,59);
+  --topcolor: rgb(165,165,165) ;
+  --colorinvert: white;
+  --textcolor:white;
+
+}
+
+body{
+  background-color:var(--maincolor);
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+  transition: ease-in 1s;
+}
+input
+{
+  color: var(--textcolor);
+  background-color: var(--maincolor);
+  border:none;
+  font-size: 3em;
+  height:0.8em;
+  width: 4.9em;
+  margin-top:0.8em;
+  margin-bottom:0.1em;
+
+  transition: ease-in 1s;
+  text-align: right;
+  
+}
+#lbloldnum
+{
+  color: var(--textcolor);
+  position:relative;
+  top:2.5em;
+  right:-14em;
+
+
+}
+.Calc
+{
+  margin-top:1.5em;
+  margin-left:1em;
+  font-family: Arial, Helvetica, sans-serif;
+  display:block;
+  transition: ease-in 1s;
+}
+button
+{
+  width: 50px;
+  height:50px;
+  border-radius: 25px;
+  background-color: var(--numbercolor) ;
+  border:none;
+  margin:5px;
+  font-size:1.4em;
+  color:white;
+  transition: 1s;
+}
+button:hover
+{
+  filter: brightness(190%);
+}
+.Total{
+  margin-top: 1em;
+  color:white;
+  font-size: 1em;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 1em;
+}
+div:nth-of-type(2) button
+{
+  background-color: var(--topcolor) ;
+  color:black;
+}
+div button:last-child
+{
+   background-color: var(--rightcolor);
+   color:var(--colorinvert);
+}
+div button:last-child:focus
+{
+  background-color: var(--colorinvert);
+  color: var(--rightcolor);
+}
+.number0
+{
+  width: 5.1em;
+  text-align: left;
+  padding-left:1.2em;
+}
+
+@media(min-width:290px)
+{
+  body
+  {
+    background-color: gray;
+    
+  }
+  .Calc
+  {
+    background-color: var(--maincolor);
+    border-radius: 25px;
+    padding:0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 290px;
+  }
+}
+
+.history
+{
+  color: var(--textcolor);
+  background-color: var(--maincolor);
+  position: absolute;
+  width: 15em;
+  height: 20em;
+  border-radius: 2em;
+  top:5em;
+  left:29em;
+  z-index: -100;
+
+}
+
+/* This is the CSS for the slider*/
+
+.switch {
+  position:relative;
+  width: 4em;
+  height: 2em;
+  float: right;
+
+}
+
+.slider
+{
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color: rgb(165,165,165);
+  transition: .4s;
+  border-radius: 2em;
+}
+
+.switch input{display: none;
+
+}
+
+.slider::before{
+  position: absolute;
+  content: "";
+  height: 1.5em;
+  width: 1.5em;
+  left: 5px;
+  bottom:5px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+input:checked + .slider
+{
+  background-color: rgb(56,100,161);
+}
+
+input:checked + .slider::before
+{
+  transform: translateX(30px);
+}
